@@ -1,14 +1,18 @@
 # PIIGuardian
 
+[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+🇧🇷 [Português](#português) | 🇺🇸 [English](#english)
+
+---
+
+# Português
+
 Sistema de detecção automatizada de dados pessoais para classificação de pedidos de acesso à informação.
 
 **Desenvolvido por Aviahub para o 1º Hackathon em Controle Social da CGDF**  
 Categoria: Acesso à Informação | Desafio Participa DF
-
-[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-
----
 
 ## Sobre o Projeto
 
@@ -27,11 +31,7 @@ O sistema classifica automaticamente os pedidos como públicos ou não públicos
 - Datas de nascimento
 - Endereços residenciais
 
----
-
 ## Métricas de Desempenho
-
-Resultados obtidos no conjunto de avaliação:
 
 | Métrica | Resultado |
 |---------|-----------|
@@ -42,28 +42,18 @@ Resultados obtidos no conjunto de avaliação:
 
 O sistema foi otimizado para maximizar o recall, minimizando falsos negativos conforme critério de desempate estabelecido no regulamento do hackathon.
 
----
-
 ## Requisitos
 
 - Python 3.9 ou superior
 - pip
 - 2GB de memória RAM disponível
 
----
-
 ## Instalação
-
-### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/aviahub/Projeto-PIIGuardian.git
 cd Projeto-PIIGuardian
-```
 
-### 2. Criar ambiente virtual
-
-```bash
 # Linux/macOS
 python3 -m venv venv
 source venv/bin/activate
@@ -71,15 +61,9 @@ source venv/bin/activate
 # Windows
 python -m venv venv
 venv\Scripts\activate
-```
 
-### 3. Instalar dependências
-
-```bash
 pip install -r requirements.txt
 ```
-
----
 
 ## Uso
 
@@ -89,7 +73,6 @@ pip install -r requirements.txt
 from src.detector import PIIGuardian
 
 detector = PIIGuardian()
-
 texto = "Meu CPF é 123.456.789-09 e telefone (61) 99999-8888"
 resultado = detector.detect(texto)
 
@@ -98,39 +81,11 @@ for entidade in resultado.entities:
     print(f"{entidade.type}: {entidade.value}")
 ```
 
-### Processamento em Lote
-
-```python
-import json
-from src.detector import PIIGuardian
-
-detector = PIIGuardian()
-
-with open('pedidos.json', 'r', encoding='utf-8') as f:
-    pedidos = json.load(f)
-
-resultados = []
-for pedido in pedidos:
-    resultado = detector.detect(pedido['texto'])
-    resultados.append({
-        'id': pedido['id'],
-        'has_pii': resultado.has_pii,
-        'entities': [e.to_dict() for e in resultado.entities]
-    })
-
-with open('resultados.json', 'w', encoding='utf-8') as f:
-    json.dump(resultados, f, indent=2, ensure_ascii=False)
-```
-
 ### API REST
-
-Iniciar o servidor:
 
 ```bash
 uvicorn api:app --host 0.0.0.0 --port 8000
 ```
-
-Requisição:
 
 ```bash
 curl -X POST "http://localhost:8000/detect" \
@@ -138,48 +93,14 @@ curl -X POST "http://localhost:8000/detect" \
      -d '{"text": "Meu email é usuario@exemplo.com"}'
 ```
 
-Resposta:
-
-```json
-{
-  "has_pii": true,
-  "entities": [
-    {
-      "type": "EMAIL",
-      "value": "usuario@exemplo.com",
-      "confidence": 0.95
-    }
-  ]
-}
-```
-
-A documentação interativa da API está disponível em `http://localhost:8000/docs`.
-
----
+Documentação interativa: `http://localhost:8000/docs`
 
 ## Arquitetura
 
-O pipeline de detecção é composto por quatro etapas:
-
-**1. Extração por Expressões Regulares**
-- Padrões otimizados para formatos brasileiros
-- Cobertura de variações de formatação
-
-**2. Análise Contextual (opcional)**
-- Modelo BERTimbau para reconhecimento de entidades nomeadas
-- Identificação de nomes próprios em contexto
-
-**3. Fusão e Validação**
-- Combinação dos resultados das etapas anteriores
-- Validação matemática de CPF e CNPJ
-- Verificação de DDDs válidos
-
-**4. Pós-processamento**
-- Consolidação de entidades sobrepostas
-- Cálculo de confiança final
-- Geração de explicações
-
----
+1. **Extração por Expressões Regulares** - Padrões otimizados para formatos brasileiros
+2. **Análise Contextual** - Modelo BERTimbau para reconhecimento de entidades nomeadas
+3. **Fusão e Validação** - Validação matemática de CPF/CNPJ, verificação de DDDs
+4. **Pós-processamento** - Consolidação de entidades sobrepostas
 
 ## Estrutura do Projeto
 
@@ -190,7 +111,6 @@ Projeto-PIIGuardian/
 ├── requirements.txt        # Dependências
 ├── LICENSE                 # Licença MIT
 ├── src/
-│   ├── __init__.py
 │   ├── detector.py         # Classe PIIGuardian
 │   ├── validators.py       # Validadores (CPF, CNPJ, etc.)
 │   ├── patterns.py         # Padrões regex
@@ -206,11 +126,7 @@ Projeto-PIIGuardian/
     └── synthetic_generator.py
 ```
 
----
-
 ## Modos de Operação
-
-O detector suporta três modos de operação:
 
 | Modo | Recall | Precisão | Indicação |
 |------|--------|----------|-----------|
@@ -218,91 +134,170 @@ O detector suporta três modos de operação:
 | `balanced` | 98.2% | 93.1% | Equilíbrio entre métricas (padrão) |
 | `precise` | 94.5% | 97.2% | Minimizar falsos positivos |
 
-```python
-detector = PIIGuardian(mode='strict')
-```
-
----
-
 ## Testes
-
-Executar testes unitários:
 
 ```bash
 python -m pytest tests/ -v
 ```
 
-Avaliar com dados sintéticos:
-
-```bash
-python data/synthetic_generator.py --size 1000 --output data/test_data.json
-python scripts/evaluate.py --data data/test_data.json --output relatorio.json
-```
-
----
-
-## Formato de Entrada e Saída
-
-**Entrada:**
-
-```json
-{
-  "text": "Solicito acesso ao processo. CPF: 123.456.789-09"
-}
-```
-
-**Saída:**
-
-```json
-{
-  "has_pii": true,
-  "entities": [
-    {
-      "type": "CPF",
-      "value": "123.456.789-09",
-      "start": 35,
-      "end": 49,
-      "confidence": 0.98,
-      "validation": "valid"
-    }
-  ],
-  "metadata": {
-    "processing_time_ms": 12.5,
-    "mode": "balanced"
-  }
-}
-```
-
----
-
-## Dependências Principais
-
-| Pacote | Versão | Finalidade |
-|--------|--------|------------|
-| torch | 2.1.0 | Deep learning |
-| transformers | 4.36.0 | Modelos BERT |
-| spacy | 3.7.0 | NLP |
-| fastapi | 0.104.0 | API REST |
-| regex | 2023.10.3 | Expressões regulares |
-| pydantic | 2.5.0 | Validação de dados |
-
----
-
 ## Limitações
 
 - Sequências numéricas extensas podem gerar falsos positivos
 - Dados parcialmente mascarados não são detectados
-- Nomes muito comuns isolados (ex: "Silva") podem não ser identificados sem contexto
+- Nomes muito comuns isolados podem não ser identificados sem contexto
 
 ---
 
-## Licença
+# English
 
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais informações.
+Automated personal data detection system for classifying freedom of information requests.
+
+**Developed by Aviahub for the 1st CGDF Social Control Hackathon**  
+Category: Access to Information | Participa DF Challenge
+
+## About the Project
+
+PIIGuardian is a solution developed to identify personal data in freedom of information requests submitted through the Participa DF platform of the Federal District Government of Brazil.
+
+The system automatically classifies requests as public or non-public, in compliance with the Brazilian General Data Protection Law (LGPD - Law No. 13,709/2018) and the Access to Information Law (LAI - Law No. 12,527/2011).
+
+### Detected Data Types
+
+- CPF and CNPJ (with mathematical validation of check digits)
+- Landline and mobile phone numbers (Brazilian area codes)
+- Email addresses
+- ZIP codes (CEP)
+- ID and driver's license numbers (RG and CNH)
+- Person names (contextual analysis)
+- Birth dates
+- Residential addresses
+
+## Performance Metrics
+
+| Metric | Result |
+|--------|--------|
+| Recall | 98.2% |
+| Precision | 93.1% |
+| F1-Score | 95.5% |
+| False Negatives | 0.12% |
+
+The system was optimized to maximize recall, minimizing false negatives as per the hackathon tiebreaker criteria.
+
+## Requirements
+
+- Python 3.9 or higher
+- pip
+- 2GB of available RAM
+
+## Installation
+
+```bash
+git clone https://github.com/aviahub/Projeto-PIIGuardian.git
+cd Projeto-PIIGuardian
+
+# Linux/macOS
+python3 -m venv venv
+source venv/bin/activate
+
+# Windows
+python -m venv venv
+venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+
+## Usage
+
+### Python Detection
+
+```python
+from src.detector import PIIGuardian
+
+detector = PIIGuardian()
+text = "My CPF is 123.456.789-09 and phone (61) 99999-8888"
+result = detector.detect(text)
+
+print(result.has_pii)  # True
+for entity in result.entities:
+    print(f"{entity.type}: {entity.value}")
+```
+
+### REST API
+
+```bash
+uvicorn api:app --host 0.0.0.0 --port 8000
+```
+
+```bash
+curl -X POST "http://localhost:8000/detect" \
+     -H "Content-Type: application/json" \
+     -d '{"text": "My email is user@example.com"}'
+```
+
+Interactive documentation: `http://localhost:8000/docs`
+
+## Architecture
+
+1. **Regex Extraction** - Optimized patterns for Brazilian formats
+2. **Contextual Analysis** - BERTimbau model for named entity recognition
+3. **Fusion and Validation** - Mathematical validation of CPF/CNPJ, area code verification
+4. **Post-processing** - Consolidation of overlapping entities
+
+## Project Structure
+
+```
+Projeto-PIIGuardian/
+├── api.py                  # REST API (FastAPI)
+├── detector.py             # Direct access module
+├── requirements.txt        # Dependencies
+├── LICENSE                 # MIT License
+├── src/
+│   ├── detector.py         # PIIGuardian class
+│   ├── validators.py       # Validators (CPF, CNPJ, etc.)
+│   ├── patterns.py         # Regex patterns
+│   └── utils.py            # Helper functions
+├── tests/
+│   ├── test_detector.py
+│   └── test_validators.py
+├── scripts/
+│   ├── evaluate.py         # Metrics evaluation
+│   └── batch_process.py    # Batch processing
+└── data/
+    ├── sample_pedidos.json
+    └── synthetic_generator.py
+```
+
+## Operation Modes
+
+| Mode | Recall | Precision | Use Case |
+|------|--------|-----------|----------|
+| `strict` | 99.5% | 88.0% | Maximum priority on not missing data |
+| `balanced` | 98.2% | 93.1% | Balance between metrics (default) |
+| `precise` | 94.5% | 97.2% | Minimize false positives |
+
+## Tests
+
+```bash
+python -m pytest tests/ -v
+```
+
+## Limitations
+
+- Extensive numeric sequences may generate false positives
+- Partially masked data is not detected
+- Very common isolated names may not be identified without context
 
 ---
 
-## Contato
+## License / Licença
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+Este projeto está licenciado sob a Licença MIT. Consulte [LICENSE](LICENSE) para mais informações.
+
+---
+
+## Contact / Contato
 
 **Aviahub**  
-Repositório: https://github.com/aviahub/Projeto-PIIGuardian
+Repository / Repositório: https://github.com/aviahub/Projeto-PIIGuardian
