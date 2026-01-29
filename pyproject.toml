@@ -1,0 +1,113 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "piiguardian"
+version = "1.0.0"
+description = "Detector de Dados Pessoais para o Participa DF - Hackathon CGDF"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Aviahub", email = "contato@aviahub.com.br"}
+]
+keywords = [
+    "pii",
+    "gdpr",
+    "lgpd",
+    "privacy",
+    "nlp",
+    "ner",
+    "data-protection",
+    "brazilian-data"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+]
+
+dependencies = [
+    "regex>=2023.10.3",
+    "pydantic>=2.5.0",
+]
+
+[project.optional-dependencies]
+ml = [
+    "torch>=2.1.0",
+    "transformers>=4.36.0",
+    "spacy>=3.7.0",
+    "scikit-learn>=1.3.0",
+]
+api = [
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+]
+dev = [
+    "pytest>=7.4.3",
+    "pytest-cov>=4.1.0",
+    "black>=23.11.0",
+    "flake8>=6.1.0",
+    "mypy>=1.7.0",
+]
+all = [
+    "piiguardian[ml,api,dev]",
+]
+
+[project.urls]
+Homepage = "https://github.com/aviahub/Projeto-PIIGuardian"
+Documentation = "https://github.com/aviahub/Projeto-PIIGuardian#readme"
+Repository = "https://github.com/aviahub/Projeto-PIIGuardian"
+Issues = "https://github.com/aviahub/Projeto-PIIGuardian/issues"
+
+[project.scripts]
+piiguardian = "detector:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+)/
+'''
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.flake8]
+max-line-length = 100
+exclude = [".git", "__pycache__", "build", "dist", "*.egg-info", ".venv"]
+ignore = ["E203", "W503"]

@@ -1,0 +1,127 @@
+{
+  "metadata": {
+    "description": "Dados de exemplo para teste do PIIGuardian",
+    "created_at": "2026-01-29",
+    "source": "Dados sintéticos baseados no formato Participa DF"
+  },
+  "data": [
+    {
+      "id": "001",
+      "text": "Solicito informações sobre o andamento do meu processo. Meu CPF é 123.456.789-09 e telefone para contato (61) 99999-8888.",
+      "expected_has_pii": true,
+      "expected_entities": [
+        {"type": "CPF", "value": "123.456.789-09"},
+        {"type": "TELEFONE", "value": "(61) 99999-8888"}
+      ]
+    },
+    {
+      "id": "002",
+      "text": "Gostaria de saber quais documentos são necessários para dar entrada no pedido de certidão.",
+      "expected_has_pii": false,
+      "expected_entities": []
+    },
+    {
+      "id": "003",
+      "text": "Eu, João da Silva, portador do CPF 987.654.321-00, venho solicitar cópia integral do processo administrativo nº 12345/2024.",
+      "expected_has_pii": true,
+      "expected_entities": [
+        {"type": "NOME_PESSOA", "value": "João da Silva"},
+        {"type": "CPF", "value": "987.654.321-00"}
+      ]
+    },
+    {
+      "id": "004",
+      "text": "Para contato, meu email é maria.santos@gmail.com e moro no CEP 70000-000.",
+      "expected_has_pii": true,
+      "expected_entities": [
+        {"type": "EMAIL", "value": "maria.santos@gmail.com"},
+        {"type": "CEP", "value": "70000-000"}
+      ]
+    },
+    {
+      "id": "005",
+      "text": "Venho por meio desta requerer esclarecimentos sobre a legislação vigente referente ao tema.",
+      "expected_has_pii": false,
+      "expected_entities": []
+    },
+    {
+      "id": "006",
+      "text": "Sr. Carlos Eduardo Ferreira, residente na Rua das Flores, 123, Brasília-DF, CEP 71000-000, telefone (61) 3333-4444.",
+      "expected_has_pii": true,
+      "expected_entities": [
+        {"type": "NOME_PESSOA", "value": "Carlos Eduardo Ferreira"},
+        {"type": "CEP", "value": "71000-000"},
+        {"type": "TELEFONE", "value": "(61) 3333-4444"}
+      ]
+    },
+    {
+      "id": "007",
+      "text": "Qual é o procedimento para solicitar acesso aos documentos públicos?",
+      "expected_has_pii": false,
+      "expected_entities": []
+    },
+    {
+      "id": "008",
+      "text": "Dados para cadastro: Nome: Ana Paula Oliveira, CPF: 111.222.333-44, Email: ana.oliveira@empresa.com.br, Celular: 11 98765-4321",
+      "expected_has_pii": true,
+      "expected_entities": [
+        {"type": "NOME_PESSOA", "value": "Ana Paula Oliveira"},
+        {"type": "CPF", "value": "111.222.333-44"},
+        {"type": "EMAIL", "value": "ana.oliveira@empresa.com.br"},
+        {"type": "CELULAR", "value": "11 98765-4321"}
+      ]
+    },
+    {
+      "id": "009",
+      "text": "Agradeço antecipadamente a atenção dispensada ao meu pedido.",
+      "expected_has_pii": false,
+      "expected_entities": []
+    },
+    {
+      "id": "010",
+      "text": "Meu número de CNPJ é 12.345.678/0001-90 e preciso de informações sobre o cadastro da empresa.",
+      "expected_has_pii": true,
+      "expected_entities": [
+        {"type": "CNPJ", "value": "12.345.678/0001-90"}
+      ]
+    },
+    {
+      "id": "011",
+      "text": "Solicito acesso ao processo referente ao protocolo informado anteriormente.",
+      "expected_has_pii": false,
+      "expected_entities": []
+    },
+    {
+      "id": "012",
+      "text": "Contato urgente: Dr. Roberto Mendes, CPF 444.555.666-77, telefone comercial (21) 2222-3333, celular +55 21 99888-7766.",
+      "expected_has_pii": true,
+      "expected_entities": [
+        {"type": "NOME_PESSOA", "value": "Roberto Mendes"},
+        {"type": "CPF", "value": "444.555.666-77"},
+        {"type": "TELEFONE", "value": "(21) 2222-3333"},
+        {"type": "CELULAR", "value": "+55 21 99888-7766"}
+      ]
+    },
+    {
+      "id": "013",
+      "text": "Informo que a documentação já foi enviada pelos Correios.",
+      "expected_has_pii": false,
+      "expected_entities": []
+    },
+    {
+      "id": "014",
+      "text": "Nascido em 15/03/1985, RG 12.345.678-9 SSP/SP, residente no endereço acima informado.",
+      "expected_has_pii": true,
+      "expected_entities": [
+        {"type": "DATA_NASCIMENTO", "value": "15/03/1985"},
+        {"type": "RG", "value": "12.345.678-9"}
+      ]
+    },
+    {
+      "id": "015",
+      "text": "Peço deferimento do presente requerimento.",
+      "expected_has_pii": false,
+      "expected_entities": []
+    }
+  ]
+}
