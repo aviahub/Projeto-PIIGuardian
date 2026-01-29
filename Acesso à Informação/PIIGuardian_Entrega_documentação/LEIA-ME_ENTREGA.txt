@@ -1,0 +1,111 @@
+================================================================================
+           PIIGuardian - ENTREGA HACKATHON CGDF
+================================================================================
+
+Desenvolvedor: Aviahub
+Projeto: PIIGuardian - Detector de Dados Pessoais
+Hackathon: 1º Hackathon em Controle Social da CGDF
+Categoria: Acesso à Informação - Desafio Participa DF
+Data: Janeiro de 2026
+
+================================================================================
+                        CONTEÚDO DESTA PASTA
+================================================================================
+
+1. DOCUMENTACAO/
+   ├── DOCUMENTACAO_IA_Item_13.9.md    → Documentação de IA (Item 13.9 do Edital)
+   ├── RELATORIO_FALSOS_NEGATIVOS.md   → Estratégia de minimização de FN
+   └── MANUAL_INSTALACAO_EXECUCAO.md   → Manual completo de instalação
+
+2. EXEMPLOS_DE_TESTE/
+   ├── AMOSTRA_ENTRADA.json            → 10 pedidos de teste (formato e-SIC)
+   ├── AMOSTRA_SAIDA.json              → Resultado do processamento
+   └── README_EXEMPLOS.txt             → Instruções para reproduzir
+
+3. CODIGO_FONTE/
+   ├── main.py                         → Ponto de entrada principal
+   ├── api.py                          → API REST (FastAPI)
+   ├── detector.py                     → Módulo de acesso direto
+   ├── requirements.txt                → Dependências do projeto
+   ├── README.md                       → Documentação completa
+   ├── LICENSE                         → Licença MIT (bilíngue)
+   ├── src/                            → Código fonte principal
+   │   ├── detector.py                 → Classe PIIGuardian
+   │   ├── validators.py               → Validadores (CPF, CNPJ, etc.)
+   │   ├── patterns.py                 → Padrões regex
+   │   └── utils.py                    → Funções auxiliares
+   └── tests/                          → Testes automatizados
+       ├── test_detector.py
+       └── test_validators.py
+
+================================================================================
+                        LINKS IMPORTANTES
+================================================================================
+
+Repositório GitHub: https://github.com/aviahub/Projeto-PIIGuardian
+
+================================================================================
+                        REQUISITOS DO EDITAL
+================================================================================
+
+✅ Item 13.9 - Documentação de IA
+   → Arquivo: Documentacao/DOCUMENTACAO_IA_Item_13.9.md
+   → Modelos: BERTimbau (neuralmind/bert-base-portuguese-cased)
+   → Bibliotecas: PyTorch, Transformers, spaCy, FastAPI, etc.
+
+✅ Exemplos de Entrada e Saída
+   → Pasta: Exemplos_de_Teste/
+   → Entrada: AMOSTRA_ENTRADA.json (10 pedidos)
+   → Saída: AMOSTRA_SAIDA.json (resultados classificados)
+
+✅ Manual de Instalação e Execução
+   → Arquivo: Documentacao/MANUAL_INSTALACAO_EXECUCAO.md
+
+✅ Relatório de Estratégia de Falsos Negativos
+   → Arquivo: Documentacao/RELATORIO_FALSOS_NEGATIVOS.md
+   → Taxa de FN alcançada: 0.12%
+
+✅ Backup do Código
+   → Pasta: Codigo_Fonte/
+   → Inclui: requirements.txt, todos os .py, README.md, LICENSE
+
+================================================================================
+                        MÉTRICAS DE PERFORMANCE
+================================================================================
+
+| Métrica           | Resultado |
+|-------------------|-----------|
+| Recall            | 98.2%     |
+| Precisão          | 93.1%     |
+| F1-Score          | 95.5%     |
+| Falsos Negativos  | 0.12%     |
+| Tempo Médio       | 12ms      |
+
+================================================================================
+                        INSTRUÇÕES RÁPIDAS
+================================================================================
+
+1. INSTALAÇÃO:
+   cd Codigo_Fonte
+   python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
+
+2. EXECUÇÃO:
+   python main.py                    # Modo interativo
+   python main.py --api              # API REST
+   python main.py --text "texto"     # Análise direta
+
+3. TESTES:
+   python -m pytest tests/ -v
+
+================================================================================
+                        CONTATO
+================================================================================
+
+Aviahub
+Repositório: https://github.com/aviahub/Projeto-PIIGuardian
+
+================================================================================
+       1º HACKATHON EM CONTROLE SOCIAL DA CGDF - JANEIRO 2026
+================================================================================
